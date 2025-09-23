@@ -145,24 +145,6 @@
     }
   });
 
-  adminRouter.put("/discount-codes/:id", async (req, res) => {
-    const id = Number(req.params.id);
-    const { code, type, value, min_total, usage_limit, single_use_per_user, start_date, end_date, active } = req.body;
-
-    try {
-      await pool.query(
-        `UPDATE discount_codes
-        SET code = ?, type = ?, value = ?, min_total = ?, usage_limit = ?, single_use_per_user = ?, start_date = ?, end_date = ?, active = ?
-        WHERE id = ?`,
-        [code, type, value, min_total || 0, usage_limit || null, single_use_per_user ? 1 : 0, start_date || null, end_date || null, active ? 1 : 0, id]
-      );
-      res.json({ message: "Discount code updated" });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: "Database error" });
-    }
-  });
-
   // สร้างโค้ดส่วนลดใหม่
   adminRouter.post("/discount-codes", async (req, res) => {
     const { code, type, value, min_total, usage_limit, single_use_per_user, start_date, end_date, active } = req.body;
