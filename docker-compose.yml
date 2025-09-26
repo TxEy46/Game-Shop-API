@@ -14,6 +14,8 @@ services:
       DB_NAME: game_store
     depends_on:
       - db
+    volumes:
+      - ./src/uploads:/usr/src/app/dist/uploads   # <-- mount โฟลเดอร์ uploads ของ host
 
   db:
     image: mysql:8.0
@@ -25,10 +27,12 @@ services:
       MYSQL_USER: game_shop
       MYSQL_PASSWORD: "1"
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - db-data:/var/lib/mysql
       - ./db/game_store.sql:/docker-entrypoint-initdb.d/game_store.sql
+      - ./src/uploads:/usr/src/app/dist/uploads
 
 volumes:
   db-data:
+
