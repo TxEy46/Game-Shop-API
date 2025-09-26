@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    container_name: game-shop-api
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: db
+      DB_USER: game_shop
+      DB_PASSWORD: "1"
+      DB_NAME: game_store
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: game-shop-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: game_store
+      MYSQL_USER: game_shop
+      MYSQL_PASSWORD: "1"
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./db/game_store.sql:/docker-entrypoint-initdb.d/game_store.sql
+
+volumes:
+  db-data:
