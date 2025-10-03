@@ -1,17 +1,9 @@
-// src/server.ts
 import { networkInterfaces } from "os";
 import { app } from "./app";
 import { testConnection } from "./dbconnect";
 
-const PORT = 3000;
-
-// (async () => {
-//   await testConnection();
-//   app.listen(PORT, () => {
-//     console.log(`🚀 Game Store API running at http://localhost:${PORT}`);
-//   });
-// })();
-
+// แปลง process.env.PORT ให้เป็น number
+const PORT = parseInt(process.env.PORT || "3000", 10);
 
 // ฟังก์ชันหา IP ของ Wi-Fi / LAN
 function getLocalIP(): string {
@@ -30,6 +22,13 @@ function getLocalIP(): string {
 
 const HOST = getLocalIP();
 
-app.listen(PORT, HOST, () => {
-  console.log(`🚀 Game Store API running at http://${HOST}:${PORT}`);
-});
+(async () => {
+  // ทดสอบการเชื่อมต่อ DB
+  await testConnection();
+
+  // Listen ที่ 0.0.0.0 → เข้าถึงจาก localhost + LAN
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`🚀 Game Store API running at http://localhost:${PORT}`);
+    console.log(`🌐 Accessible in LAN at http://${HOST}:${PORT}`);
+  });
+})();
