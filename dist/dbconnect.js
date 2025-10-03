@@ -15,15 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.testConnection = exports.pool = void 0;
 const promise_1 = __importDefault(require("mysql2/promise"));
 exports.pool = promise_1.default.createPool({
-    host: "localhost",
-    user: "game_shop",
-    password: "1",
-    database: "game_store",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
+    port: parseInt(process.env.DB_PORT || "3306"),
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
 });
-// ทดสอบ connection
 const testConnection = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const [rows] = yield exports.pool.query("SELECT 1 + 1 AS result");
