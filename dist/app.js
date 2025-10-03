@@ -26,6 +26,10 @@ exports.app.use(body_parser_1.default.json());
 exports.app.use(body_parser_1.default.urlencoded({ extended: true }));
 // เสิร์ฟไฟล์ static (สำหรับรูปที่อัปโหลด)
 exports.app.use("/uploads", express_1.default.static(path_1.default.join(__dirname, "uploads")));
+// Root route
+exports.app.get("/", (req, res) => {
+    res.send("Connected API Game Store");
+});
 // Routes
 exports.app.use("/upload", upload_1.default);
 exports.app.use("/user", user_1.router);

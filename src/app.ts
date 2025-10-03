@@ -24,6 +24,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // เสิร์ฟไฟล์ static (สำหรับรูปที่อัปโหลด)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+// Root route
+app.get("/", (req, res) => {
+  res.send("Connected API Game Store");
+});
+
 // Routes
 app.use("/upload", uploadRouter);
 app.use("/user", userRouter);
