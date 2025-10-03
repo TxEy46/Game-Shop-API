@@ -13,7 +13,7 @@ const os_1 = require("os");
 const app_1 = require("./app");
 const dbconnect_1 = require("./dbconnect");
 // แปลง process.env.PORT ให้เป็น number
-const PORT = parseInt(process.env.PORT || "3000", 10);
+const PORT = parseInt(process.env.PORT || "3306", 10);
 // ฟังก์ชันหา IP ของ Wi-Fi / LAN
 function getLocalIP() {
     const nets = (0, os_1.networkInterfaces)();

@@ -3,7 +3,7 @@ import { app } from "./app";
 import { testConnection } from "./dbconnect";
 
 // แปลง process.env.PORT ให้เป็น number
-const PORT = parseInt(process.env.PORT || "3000", 10);
+const PORT = parseInt(process.env.PORT || "3306", 10);
 
 // ฟังก์ชันหา IP ของ Wi-Fi / LAN
 function getLocalIP(): string {
